@@ -1,0 +1,3 @@
+C:/Users/xande/Documents/GitHub/aau-P1/cmake-build-debug/CMakeFiles/aau_P1.dir
+C:/Users/xande/Documents/GitHub/aau-P1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/xande/Documents/GitHub/aau-P1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
