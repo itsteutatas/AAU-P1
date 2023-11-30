@@ -9,5 +9,5 @@ int main(){
     printf("Input temperature");
     scanf("%lf", &temperature);
 
-
+    printf("alt muligt");
 }
