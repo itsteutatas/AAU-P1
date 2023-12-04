@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "aau_P1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-aau_P1-Debug-eaf21e479c5fc32bcc81.json",
+					"jsonFile" : "target-aau_P1-Debug-dfa1da0abc9e3a11e670.json",
 					"name" : "aau_P1",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/jungl/OneDrive/Documents/GitHub/aau-P1/cmake-build-debug",
-		"source" : "C:/Users/jungl/OneDrive/Documents/GitHub/aau-P1"
+		"build" : "/Users/felixbjerre/Documents/GitHub/aau-P1/cmake-build-debug",
+		"source" : "/Users/felixbjerre/Documents/GitHub/aau-P1"
 	},
 	"version" : 
 	{

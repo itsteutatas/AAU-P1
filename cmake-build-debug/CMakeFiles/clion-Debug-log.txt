@@ -1,10 +1,14 @@
-C:\Users\jungl\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S C:\Users\jungl\OneDrive\Documents\GitHub\aau-P1 -B C:\Users\jungl\OneDrive\Documents\GitHub\aau-P1\cmake-build-debug
--- The C compiler identification is GNU 13.1.0
+/Users/felixbjerre/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /Users/felixbjerre/Documents/GitHub/aau-P1 -B /Users/felixbjerre/Documents/GitHub/aau-P1/cmake-build-debug
+CMake Error at /Users/felixbjerre/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:217 (configure_file):
+  No such file or directory
+Call Stack (most recent call first):
+  CMakeLists.txt:2 (project)
+
+
+-- The C compiler identification is AppleClang 14.0.3.14030022
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: C:/Users/jungl/AppData/Local/Programs/CLion/bin/mingw/bin/gcc.exe - skipped
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Configuring done (3.3s)
--- Generating done (0.0s)
--- Build files have been written to: C:/Users/jungl/OneDrive/Documents/GitHub/aau-P1/cmake-build-debug
+-- Configuring incomplete, errors occurred!

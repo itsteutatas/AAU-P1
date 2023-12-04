@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "aau_P1.exe"
-		},
-		{
-			"path" : "aau_P1.pdb"
+			"path" : "aau_P1"
 		}
 	],
 	"backtrace" : 1,
@@ -45,14 +42,14 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu11 -fdiagnostics-color=always"
+					"fragment" : "-g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 2,
-					"path" : "C:/Users/jungl/OneDrive/Documents/GitHub/aau-P1/."
+					"path" : "/Users/felixbjerre/Documents/GitHub/aau-P1/."
 				}
 			],
 			"language" : "C",
@@ -83,16 +80,12 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
-				"role" : "libraries"
 			}
 		],
 		"language" : "C"
 	},
 	"name" : "aau_P1",
-	"nameOnDisk" : "aau_P1.exe",
+	"nameOnDisk" : "aau_P1",
 	"paths" : 
 	{
 		"build" : ".",

@@ -1,3 +1,1 @@
-C:\Users\jungl\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\aau_P1.dir/objects.a
-C:\Users\jungl\AppData\Local\Programs\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\aau_P1.dir/objects.a @CMakeFiles\aau_P1.dir\objects1.rsp
-C:\Users\jungl\AppData\Local\Programs\CLion\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\aau_P1.dir/objects.a -Wl,--no-whole-archive -o aau_P1.exe -Wl,--out-implib,libaau_P1.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\aau_P1.dir\linkLibs.rsp
+/Library/Developer/CommandLineTools/usr/bin/cc -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/aau_P1.dir/main.c.o CMakeFiles/aau_P1.dir/driver.c.o -o aau_P1 
