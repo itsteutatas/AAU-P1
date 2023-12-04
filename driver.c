@@ -71,6 +71,24 @@ void print_secchi_result(int mdl) {
     printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.", mdl);
 }
 //Check which bracket salinity input falls into. Returns: Returns: Int corresponding with bracket
+int salinity_bracket(int s){
+    if(s < 5){
+        return 1; // Returns 1 for a bad result with high mortality
+    }
+    else if(s < 9){
+        return 2; // Returns 2 for a OK Result
+    }
+    else if(s < 26){
+        return 3; // Returns 3 for a optimal result
+    }
+    else if( s < 36){
+        return 4; // Returns 4 for a fine result
+    }
+    else{
+        return 5; // Returns 5 for a not good result
+    }
+}
+
 
 //Print statement for each parameter as a result
 void print_result(int temperature, int secchi_depth) {
@@ -78,6 +96,28 @@ void print_result(int temperature, int secchi_depth) {
     int mdl = max_depth_limit(secchi_depth);
     print_temperature_result(t);
     print_secchi_result(mdl);
+}
+
+//Print result for salinity
+void print__salinity_result(int salinity_bracket){
+    switch (salinity_bracket) {
+        case 1:
+            printf("The current salinity level is to low and\n");
+            break;
+        case 2:
+            printf("The current salinity level is OK\n");
+            break;
+        case 3:
+            printf("The current salinity level is optimal\n")
+            break;
+        case 4:
+            printf("The current sainity level is fine\n")
+            break;
+        case 5:
+            printf("The current salinity level i to high\n")
+            break;
+    }
+
 }
 
 int main(){
