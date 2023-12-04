@@ -32,12 +32,26 @@ int if_value_below(int actual_value, int limit_value){
 }
 
 int comparator(int temp, int N, int depth){
-       //Temperatur
-        if(if_value_higher(temp,MAX_TEMP) == 1){
-            return 0; //hvis temperaturen er højere, så returnerer den 0
+    int counter = 0;
+
+    if (if_value_below(temp) + if_value_higher(MAX_TEMP) > 0){
+        counter += 1;
         }
-        else (if_value_below(temp,MIN_TEMP) == 0){
-            return 1;
-        }
+
+    if (if_value_below() + if_value_higher() > 0){
+        counter += 1;
+    }
+
+    if (if_value_below() + if_value_higher() > 0){
+        counter += 1;
+    }
+
+    if (counter > 0){
+        printf("water bad");
+    } else {
+        printf("water good");
+    }
+
+
     }
 
