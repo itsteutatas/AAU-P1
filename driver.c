@@ -13,7 +13,7 @@ void input_parameters(double* temperature, double* salinity, double* secchi_dept
 
     printf("Measure the salinity in ppt, input the value without unit and press enter\n");
     scanf("%lf", salinity);
-}
+} // ret til ints alt sammen!!!!!!!!!!!!!!!!
 
 //This function saves an entry of the three values into the opened file, f.
 void save_entry(FILE* f, double temperature, double salinity, double secchi_depth){
@@ -42,7 +42,7 @@ int temperature_bracket(int c) {
 //It returns an integer of the max depth limit in centimeters, rounded up.
 int max_depth_limit(int sd) {
     return ceil(sd * 0.95);
-}
+} // tjek resultat for int*0.95
 
 //
 void print_temperature_result(int t) {
@@ -76,6 +76,8 @@ void print_temperature_result(int t) {
 void print_secchi_result(int mdl) {
     printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.", mdl);
 }
+
+
 //Check which bracket salinity input falls into. Returns: Returns: Int corresponding with bracket
 int salinity_bracket(int s){
     if(s < 5){
@@ -95,17 +97,8 @@ int salinity_bracket(int s){
     }
 }
 
-
-//Print statement for each parameter as a result
-void print_result(int temperature, int secchi_depth) {
-    int t = temperature_bracket(temperature);
-    int mdl = max_depth_limit(secchi_depth);
-    print_temperature_result(t);
-    print_secchi_result(mdl);
-}
-
 //Print result for salinity
-void print__salinity_result(int salinity_bracket){
+void print_salinity_result(int salinity_bracket){
     switch (salinity_bracket) {
         case 1:
             printf("The current salinity level is to low and\n");
@@ -117,13 +110,20 @@ void print__salinity_result(int salinity_bracket){
             printf("The current salinity level is optimal\n");
             break;
         case 4:
-            printf("The current sainity level is fine\n");
+            printf("The current salinity level is fine\n");
             break;
         case 5:
             printf("The current salinity level i to high\n");
             break;
     }
+}
 
+//Print statement for each parameter as a result
+void print_result(int temperature, int secchi_depth) {
+    int t = temperature_bracket(temperature);
+    int mdl = max_depth_limit(secchi_depth);
+    print_temperature_result(t);
+    print_secchi_result(mdl);
 }
 
 int main(){
@@ -135,7 +135,7 @@ int main(){
 
     print_result(temperature, secchi_depth);
 
-    FILE *f = fopen("fil1.txt", "w");
+    FILE *f = fopen("file1.txt", "w");
     if (f == NULL)
     {
         printf("The file could not be opened.");
