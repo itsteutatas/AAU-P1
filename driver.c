@@ -1,7 +1,9 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include <math.h>
 #include "main.h"
 
+//This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
 void input_parameters(double* temperature, double* salinity, double* secchi_depth){
     printf("Measure the temperature in degrees Celsius, input the value without unit and press enter\n");
     scanf("%lf", temperature);
@@ -13,11 +15,12 @@ void input_parameters(double* temperature, double* salinity, double* secchi_dept
     scanf("%lf", salinity);
 }
 
+//This function saves an entry of the three values into the opened file, f.
 void save_entry(FILE* f, double temperature, double salinity, double secchi_depth){
     fprintf(f, "%.1lf degrees Celsius | %.1lf ppt salinity | %.1lf centimeters\n", temperature, salinity, secchi_depth);
 }
 
-//Check which bracket temperature input falls into. Returns: Int corresponding with bracket
+//This function checks which bracket the temperature input falls into. It returns an integer corresponding to the bracket
 int temperature_bracket(int c) {
     if (c < 5) {
         return 1;
@@ -34,11 +37,14 @@ int temperature_bracket(int c) {
     }
 }
 
-//Check the maximum depth limit based on Secchi depth. Returns: Int max depth limit in centimeters, rounded up
+//This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
+//can be planted.
+//It returns an integer of the max depth limit in centimeters, rounded up.
 int max_depth_limit(int sd) {
-    return sd * 0.95;
+    return ceil(sd * 0.95);
 }
 
+//
 void print_temperature_result(int t) {
     switch (t) {
         case 1:
@@ -108,13 +114,13 @@ void print__salinity_result(int salinity_bracket){
             printf("The current salinity level is OK\n");
             break;
         case 3:
-            printf("The current salinity level is optimal\n")
+            printf("The current salinity level is optimal\n");
             break;
         case 4:
-            printf("The current sainity level is fine\n")
+            printf("The current sainity level is fine\n");
             break;
         case 5:
-            printf("The current salinity level i to high\n")
+            printf("The current salinity level i to high\n");
             break;
     }
 
