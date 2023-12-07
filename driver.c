@@ -1,141 +1,202 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "main.h"
+#include "driver.h"
 
-void input_parameters(double* temperature, double* salinity, double* secchi_depth){
-    printf("Measure the temperature in degrees Celsius, input the value without unit and press enter\n");
-    scanf("%lf", temperature);
-
-    printf("Measure the secchi depth in centimeter, input the value without unit and press enter\n");
-    scanf("%lf", secchi_depth);
-
-    printf("Measure the salinity in ppt, input the value without unit and press enter\n");
-    scanf("%lf", salinity);
+//Used in main to choose whether more data entries should be made or the program should end. Returns 'y' for yes and 'n' for no.
+char scan_selection() {
+    char selection = ' ';
+    while(selection != 'y' && selection != 'n') {
+        printf("Would you like to make a data entry? (y/n) ");
+        scanf(" %c", &selection);
+    }
+    return selection;
 }
 
+
+//This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
+void input_parameters(double* temperature, double* salinity, double* secchi_depth){
+    printf("Measure the temperature in degrees Celsius, then input the value without unit and press enter: ");
+    scanf("%lf", temperature);
+
+    printf("Measure the salinity in ppt, then input the value without unit and press enter: ");
+    scanf("%lf", salinity);
+
+    printf("Measure the secchi depth in centimeter, then input the value without unit and press enter: ");
+    scanf("%lf", secchi_depth);
+}
+
+//This function saves an entry of the three values into the opened file, f.
 void save_entry(FILE* f, double temperature, double salinity, double secchi_depth){
     fprintf(f, "%.1lf degrees Celsius | %.1lf ppt salinity | %.1lf centimeters\n", temperature, salinity, secchi_depth);
 }
 
-//Check which bracket temperature input falls into. Returns: Int corresponding with bracket
-int temperature_bracket(int c) {
+//This function checks which bracket the temperature input falls into. It returns an integer corresponding to the bracket
+int calc_t_bracket(double c) {
     if (c < 5) {
-        return 1;
+        return 1; //Returns 1 for a bad result with stunted growth
     } else if (c < 10) {
-        return 2;
+        return 2; //Returns 2 for a fine result
     } else if (c < 21) {
-        return 3;
+        return 3; //Returns 3 for an optimal result
     } else if (c < 24) {
-        return 4;
+        return 4; //Returns 4 for a fine result
     } else if (c < 30){
-        return 5;
+        return 5; //Returns 5 for a bad result with stunted reproduction
     } else {
-        return 6;
+        return 6; //Returns 6 for a bad result with high mortality
     }
 }
 
-//Check the maximum depth limit based on Secchi depth. Returns: Int max depth limit in centimeters, rounded up
-int max_depth_limit(int sd) {
-    return sd * 0.95;
-}
-
-void print_temperature_result(int t) {
-    switch (t) {
-        case 1:
-            printf("The current temperature conditions are poor, as the water temperature is too low."
-                   "Seagrass planted here is likely to survive, but its growth will be stunted.");
-            break;
-        case 2:
-            printf("The current temperature conditions are fine, albeit slightly low."
-                   "Seagrass planted here will survive, but not thrive.");
-            break;
-        case 3:
-            printf("The current temperature conditions are optimal."
-                   "Seagrass planted here will thrive.");
-            break;
-        case 4:
-            printf("The current temperature conditions are fine, albeit slightly high."
-                   "Seagrass planted here will survive, but not thrive.");
-            break;
-        case 5:
-            printf("The current temperature conditions are poor, as the water temperature is too high."
-                   "Seagrass planted here will not be able to reproduce.");
-            break;
-        case 6:
-            printf("The current temperature conditions are severe, as the temperature is much too high."
-                   "Seagrass planted here will likely not survive.");
-    }
-}
-
-void print_secchi_result(int mdl) {
-    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.", mdl);
-}
 //Check which bracket salinity input falls into. Returns: Returns: Int corresponding with bracket
-int salinity_bracket(int s){
+int calc_s_bracket(double s) {
     if(s < 5){
         return 1; // Returns 1 for a bad result with high mortality
     }
-    else if(s < 9){
+    else if(s < 9) {
         return 2; // Returns 2 for a OK Result
     }
-    else if(s < 26){
+    else if(s < 26) {
         return 3; // Returns 3 for a optimal result
     }
-    else if( s < 36){
+    else if( s < 36) {
         return 4; // Returns 4 for a fine result
     }
-    else{
+    else {
         return 5; // Returns 5 for a not good result
     }
 }
 
-
-//Print statement for each parameter as a result
-void print_result(int temperature, int secchi_depth) {
-    int t = temperature_bracket(temperature);
-    int mdl = max_depth_limit(secchi_depth);
-    print_temperature_result(t);
-    print_secchi_result(mdl);
+//This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
+//can be planted.
+//It returns an integer of the max depth limit in centimeters, rounded down.
+int calc_mdl(double sd) {
+    return sd * 0.95;
 }
 
-//Print result for salinity
-void print__salinity_result(int salinity_bracket){
-    switch (salinity_bracket) {
+//Takes a parameter of temperature bracket and prints a string that represents the temperature bracket.
+void print_temperature_result(int t) {
+    switch (t) {
         case 1:
-            printf("The current salinity level is to low and\n");
+            printf("he current water temperature is too low");
             break;
         case 2:
-            printf("The current salinity level is OK\n");
+            printf("he current water temperature fine, albeit slightly low");
             break;
         case 3:
-            printf("The current salinity level is optimal\n")
+            printf("he current water temperature is optimal");
             break;
         case 4:
-            printf("The current sainity level is fine\n")
+            printf("he current water temperature is fine, albeit slightly high");
             break;
         case 5:
-            printf("The current salinity level i to high\n")
+            printf("he current water temperature is too high");
+            break;
+        case 6:
+            printf("he current water temperature is much too high");
+    }
+}
+
+//Takes a parameter of salinity bracket and prints a string that represents the salinity bracket.
+void print_salinity_result(int salinity_bracket){
+    switch (salinity_bracket) {
+        case 1:
+            printf("he current salinity level is too low");
+            break;
+        case 2:
+            printf("he current salinity level is fine");
+            break;
+        case 3:
+            printf("he current salinity level is optimal");
+            break;
+        case 4:
+            printf("he current salinity level is fine");
+            break;
+        case 5:
+            printf("he current salinity level is too high");
             break;
     }
+}
 
+//Takes parameter of max depth limit and prints the result as a string.
+void print_secchi_result(int mdl) {
+    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters.\n\n", mdl);
+}
+
+//Encapsulates the previous functions; finds brackets for temperature and salinity, finds the max depth limit, and
+//prints a combined result.
+void print_full_result(double temperature, double salinity, double secchi_depth) {
+    int t_bracket = calc_t_bracket(temperature);
+    int s_bracket = calc_s_bracket(salinity);
+    int mdl = calc_mdl(secchi_depth);
+
+    //Four options:
+    if(t_bracket == 1 || t_bracket > 4) { //1) Temperature is too extreme, print temperature first and salinity after
+        printf("It is not recommended to plant seagrass in this area.\nT");
+        print_temperature_result(t_bracket);
+        printf(" (%d)", t_bracket);
+        printf(", and t");
+        print_salinity_result(s_bracket);
+        printf(" (%d)", s_bracket);
+        printf(".\n");
+    } else if (s_bracket == 1 || s_bracket == 5) { //2) Salinity is too extreme, print salinity first and temperature after
+        printf("It is not recommended to plant seagrass in this area.\nT");
+        print_salinity_result(s_bracket);
+        printf(" (%d)", t_bracket);
+        printf(", and t");
+        print_temperature_result(t_bracket);
+        printf(" (%d)", s_bracket);
+        printf(".\n");
+    } else if (t_bracket == 2 || t_bracket == 4 || s_bracket == 2 || s_bracket == 4) { //3) None of the parameters are too extreme
+        printf("The conditions for planting seagrass are good enough, but could be better.\nT");
+        print_salinity_result(s_bracket);
+        printf(" (%d)", s_bracket);
+        printf(", and t");
+        print_temperature_result(t_bracket);
+        printf(" (%d)", t_bracket);
+        printf(".\n");
+        print_secchi_result(mdl);
+        printf(" (%d)", mdl);
+    } else { //Optimal conditions for both temperature and salinity
+        printf("This area is recommended for planting seagrass.\nT");
+        print_temperature_result(t_bracket);
+        printf(" (%d)", t_bracket);
+        printf(", and t");
+        print_salinity_result(s_bracket);
+        printf(" (%d)", s_bracket);
+        printf(".\n");
+        print_secchi_result(mdl);
+        printf(" (%d)", mdl);
+    }
 }
 
 int main(){
+    char selection = ' ';
     double temperature, salinity, secchi_depth;
-    printf("This program needs an input of temperature, secchi depth and nitrogen levels\n"
-           "With this input it calculates whether the area is suitable for seagrass growth\n\n");
 
-    input_parameters(&temperature, &salinity, &secchi_depth);
-
-    print_result(temperature, secchi_depth);
-
-    FILE *f = fopen("fil1.txt", "w");
-    if (f == NULL)
-    {
-        printf("The file could not be opened.");
+    //Open file "file1.txt" in writing mode
+    FILE *f = fopen("file1.txt", "w");
+    if (f == NULL) {
+        printf("The file could not be accessed.");
         exit(EXIT_FAILURE);
     }
 
-    save_entry(f, temperature, salinity, secchi_depth);
+    //Initial prompt
+    printf("This program needs an input of temperature, Secchi depth and salinity.\n"
+           "With this input, it calculates whether the area is suitable for planting seagrass.\n\n");
 
+    //Program loop, uses scan_selection() to determine whether program should run or exit
+    while(selection != 'n') {
+        selection = scan_selection();
+        if(selection == 'y') {
+            //Takes user input, prints the result, and saves the entry in the textfile
+            input_parameters(&temperature, &salinity, &secchi_depth);
+            print_full_result(temperature, salinity, secchi_depth);
+            save_entry(f, temperature, salinity, secchi_depth);
+        } else {
+            //Closes file and exits program
+            fclose(f);
+            exit(EXIT_SUCCESS);
+        }
+    }
 }
