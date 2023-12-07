@@ -8,9 +8,9 @@
 #endif //AAU_P1_DRIVER_H
 
 char scan_selection();
-void check_input(double temperature, double salinity, double secchi_depth);
-void input_parameters(double temperature, double salinity, double secchi_depth);
-void save_entry(FILE* f, double temperature, double salinity, double secchi_depth);
+void check_input(double temperature, double salinity, double secchi_depth, char location[]);
+void input_parameters(double temperature, double salinity, double secchi_depth, char location[]);
+void save_entry(FILE* f, double temperature, double salinity, double secchi_depth, char location[]);
 int calc_t_bracket(double c);
 int calc_s_bracket(double s);
 int calc_mdl(double sd);
