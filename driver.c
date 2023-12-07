@@ -2,20 +2,18 @@
 #include "stdlib.h"
 #include "main.h"
 #include "driver.h"
+#define MAX_STRING_LENGTH 20
 
 //Used in main to choose whether more data entries should be made or the program should end. Returns 'y' for yes and 'n' for no.
 char scan_selection() {
     char selection = ' ';
     printf("Would you like to make a data entry? (y/n): ");
     scanf(" %c", &selection);
-    /*while(selection != 'y' && selection != 'n') {
-        printf("Would you like to make a data entry? (y/n): ");
-    }*/
     return selection;
 }
 
 //This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
-void input_parameters(double* temperature, double* salinity, double* secchi_depth){
+void input_parameters(double* temperature, double* salinity, double* secchi_depth, char location[]){
     printf("Measure the temperature in degrees Celsius, then input the value without unit and press enter: ");
     scanf("%lf", temperature);
 
@@ -24,11 +22,14 @@ void input_parameters(double* temperature, double* salinity, double* secchi_dept
 
     printf("Measure the secchi depth in centimeter, then input the value without unit and press enter: ");
     scanf("%lf", secchi_depth);
+
+    printf("Enter the sea at which the measurements are taken: ");
+    scanf("%s", location);
 }
 
 //This function saves an entry of the three values into the opened file, f.
-void save_entry(FILE* f, double temperature, double salinity, double secchi_depth){
-    fprintf(f, "%.1lf degrees Celsius | %.1lf ppt salinity | %.1lf centimeters\n", temperature, salinity, secchi_depth);
+void save_entry(FILE* f, double temperature, double salinity, double secchi_depth, char location[]){
+    fprintf(f, "%.1lf degrees Celsius | %.1lf ppt salinity | %.1lf centimeters | Location: %s\n", temperature, salinity, secchi_depth, location);
 }
 
 //This function checks which bracket the temperature input falls into. It returns an integer corresponding to the bracket
@@ -160,18 +161,18 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
     } else { //Optimal conditions for both temperature and salinity
         printf("This area is recommended for planting seagrass.\nT");
         print_temperature_result(t_bracket);
-        printf(" (%d)", t_bracket);
+        // printf(" (%d)", t_bracket);
         printf(", and t");
         print_salinity_result(s_bracket);
-        printf(" (%d)", s_bracket);
+        // printf(" (%d)", s_bracket);
         printf(".\n");
         print_secchi_result(mdl);
-        printf(" (%d)", mdl);
     }
 }
 
 int main(){
-    char selection = ' ';
+    char selection;
+    char location[MAX_STRING_LENGTH];
     double temperature, salinity, secchi_depth;
 
     //Initial prompt
@@ -181,20 +182,21 @@ int main(){
     //Program loop, uses scan_selection() to determine whether program should run or exit
     while(1) {
         selection = scan_selection();
-        if (selection == 'y') {
+        if (selection == 'y' || selection == 'Y') {
             //Open file "file1.txt" in writing mode
-            FILE *f = fopen("file1.txt", "w");
+            FILE *f = fopen("file1.txt", "a"); // "a" appends to a file. Writing operations, append data at the end of the file. The file is created if it does not exist.
             if (f == NULL) {
                 printf("The file could not be accessed.");
                 exit(EXIT_FAILURE);
             }
 
             //Takes user input, prints the result, and saves the entry in the textfile
-            input_parameters(&temperature, &salinity, &secchi_depth);
+            input_parameters(&temperature, &salinity, &secchi_depth, location);
             print_full_result(temperature, salinity, secchi_depth);
-            save_entry(f, temperature, salinity, secchi_depth);
+            save_entry(f, temperature, salinity, secchi_depth, location);
             fclose(f);
-        } else if (selection == 'n') {
+        }
+        else if (selection == 'n' || selection == 'N') {
             //Closes file and exits program
             exit(EXIT_SUCCESS);
         }

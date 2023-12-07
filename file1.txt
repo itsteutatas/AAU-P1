@@ -1,1 +1,8 @@
 10.0 degrees Celsius | 10.0 ppt salinity | 100.0 centimeters
+20.0 degrees Celsius | 20.0 ppt salinity | 200.0 centimeters
+30.0 degrees Celsius | 30.0 ppt salinity | 300.0 centimeters
+0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters
+40.0 degrees Celsius | 40.0 ppt salinity | 400.0 centimeters
+50.0 degrees Celsius | 50.0 ppt salinity | 500.0 centimeters
+20.0 degrees Celsius | 20.0 ppt salinity | 200.0 centimeters
+20.0 degrees Celsius | 20.0 ppt salinity | 200.0 centimeters | Location: Vadehavet
