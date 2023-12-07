@@ -13,18 +13,46 @@ char scan_selection() {
     }*/
     return selection;
 }
+//This function validates input parameters. Want to make a range - higher and lower limitis for input
+//E.g. for temperature limits could be max low and high temperatures measured in Danish waters.
+// Max low : -10, max high : 30
+void check_input(double temperature, double salinity, double secchi_depth){
+    int count = 0;
+
+    if(temperature <= -10|| temperature >= 30){
+        printf("Your temperature input is invalid.\n");
+        count = 1;
+    }
+    if(salinity < 0 || salinity > 50){
+        printf("Your salinity input is invalid.\n");
+        count = 1;
+    }
+    if(secchi_depth <= 0){
+        printf("Your Secchi depth input is invalid.\n");
+        count = 1;
+    }
+
+    if (count == 1) {
+        input_parameters(temperature, salinity, secchi_depth);
+    }
+}
 
 //This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
-void input_parameters(double* temperature, double* salinity, double* secchi_depth){
+void input_parameters(double temperature, double salinity, double secchi_depth){
     printf("Measure the temperature in degrees Celsius, then input the value without unit and press enter: ");
-    scanf("%lf", temperature);
+    scanf("%lf", &temperature);
 
     printf("Measure the salinity in ppt, then input the value without unit and press enter: ");
-    scanf("%lf", salinity);
+    scanf("%lf", &salinity);
 
     printf("Measure the secchi depth in centimeter, then input the value without unit and press enter: ");
-    scanf("%lf", secchi_depth);
+    scanf("%lf", &secchi_depth);
+
+    check_input(temperature, salinity, secchi_depth);
+
 }
+
+
 
 //This function saves an entry of the three values into the opened file, f.
 void save_entry(FILE* f, double temperature, double salinity, double secchi_depth){
@@ -190,7 +218,7 @@ int main(){
             }
 
             //Takes user input, prints the result, and saves the entry in the textfile
-            input_parameters(&temperature, &salinity, &secchi_depth);
+            input_parameters(temperature, salinity, secchi_depth);
             print_full_result(temperature, salinity, secchi_depth);
             save_entry(f, temperature, salinity, secchi_depth);
             fclose(f);
