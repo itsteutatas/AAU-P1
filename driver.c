@@ -6,13 +6,13 @@
 //Used in main to choose whether more data entries should be made or the program should end. Returns 'y' for yes and 'n' for no.
 char scan_selection() {
     char selection = ' ';
-    while(selection != 'y' && selection != 'n') {
-        printf("Would you like to make a data entry? (y/n) ");
-        scanf(" %c", &selection);
-    }
+    printf("Would you like to make a data entry? (y/n): ");
+    scanf(" %c", &selection);
+    /*while(selection != 'y' && selection != 'n') {
+        printf("Would you like to make a data entry? (y/n): ");
+    }*/
     return selection;
 }
-
 
 //This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
 void input_parameters(double* temperature, double* salinity, double* secchi_depth){
@@ -174,29 +174,32 @@ int main(){
     char selection = ' ';
     double temperature, salinity, secchi_depth;
 
-    //Open file "file1.txt" in writing mode
-    FILE *f = fopen("file1.txt", "w");
-    if (f == NULL) {
-        printf("The file could not be accessed.");
-        exit(EXIT_FAILURE);
-    }
-
     //Initial prompt
     printf("This program needs an input of temperature, Secchi depth and salinity.\n"
            "With this input, it calculates whether the area is suitable for planting seagrass.\n\n");
 
     //Program loop, uses scan_selection() to determine whether program should run or exit
-    while(selection != 'n') {
+    while(1) {
         selection = scan_selection();
-        if(selection == 'y') {
+        if (selection == 'y') {
+            //Open file "file1.txt" in writing mode
+            FILE *f = fopen("file1.txt", "w");
+            if (f == NULL) {
+                printf("The file could not be accessed.");
+                exit(EXIT_FAILURE);
+            }
+
             //Takes user input, prints the result, and saves the entry in the textfile
             input_parameters(&temperature, &salinity, &secchi_depth);
             print_full_result(temperature, salinity, secchi_depth);
             save_entry(f, temperature, salinity, secchi_depth);
-        } else {
-            //Closes file and exits program
             fclose(f);
+        } else if (selection == 'n') {
+            //Closes file and exits program
             exit(EXIT_SUCCESS);
+        }
+        else {
+            printf("Input not valid. Please write y or n\n");
         }
     }
 }
