@@ -19,18 +19,18 @@ char scan_selection() {
  *  fulfill minimum requirements (check_input function).
  *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
  */
-void input_parameters(double temperature, double salinity, double secchi_depth, char location[]) {
+void input_parameters(double *temperature, double *salinity, double *secchi_depth, char location[]) {
     do {
         printf("\nMeasure the temperature in degrees Celsius, then input the value without unit and press enter: ");
-        scanf("%lf", &temperature);
+        scanf("%lf", temperature);
 
         printf("\nMeasure the salinity in ppt, then input the value without unit and press enter: ");
-        scanf("%lf", &salinity);
+        scanf("%lf", salinity);
 
-        check_parameter_input(temperature, salinity, secchi_depth, location);
+        check_parameter_input(*temperature, *salinity, secchi_depth, location);
 
         if (secchi_depth > 0) {
-
+            break;
         }
 
         printf("\nEnter the location from which the parameters are derived. Please do not enter invalid letters: æ/Æ, ø/Ø, å/Å.\n");
@@ -38,7 +38,6 @@ void input_parameters(double temperature, double salinity, double secchi_depth, 
             check_location_input(location);
             break;
         }
-
     }   while(1);
 }
 /*  This function checks if user input is valid. The limits are based on data for highest and lowest measurements of
@@ -47,7 +46,7 @@ void input_parameters(double temperature, double salinity, double secchi_depth, 
  *  The strstr function checks if there are any invalid letters (æ/Æ, ø/Ø, å/Å) in the location input.
  *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
  */
-void check_parameter_input(double temperature, double salinity, double secchi_depth, char location[]) {
+void check_parameter_input(double temperature, double salinity, double *secchi_depth, char location[]) {
     int count = 0;
 
     if (temperature <= -10|| temperature >= 30) {
@@ -60,14 +59,14 @@ void check_parameter_input(double temperature, double salinity, double secchi_de
     }
     if ((count != 1) && (temperature > 10 || salinity > 9)) {
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter: ");
-        if (scanf("%lf", &secchi_depth) != 1 || secchi_depth <= 0) { //If it's not equal to 1, it means that scanf failed to read a valid number.
+        if (scanf("%lf", secchi_depth) != 1 || secchi_depth <= 0) { //If it's not equal to 1, it means that scanf failed to read a valid number.
             printf("Your Secchi depth input is invalid.\n");
             count = 1;
         }
     }
 
     if (count == 1) {   //If inputs are invalid the program will prompt user to enter parameters again.
-         input_parameters(temperature, salinity, secchi_depth, location);
+         input_parameters(&temperature, &salinity, secchi_depth, location);
     }
 }
 
@@ -197,7 +196,8 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         print_salinity_result(s_bracket);
         printf(" (%d)", s_bracket);
         printf(".\n");
-    } else if (s_bracket == 1 || s_bracket == 5) { //2) Salinity is too extreme, print salinity first and temperature after
+    }
+    else if (s_bracket == 1 || s_bracket == 5) { //2) Salinity is too extreme, print salinity first and temperature after
         printf("It is not recommended to plant seagrass in this area.\nT");
         print_salinity_result(s_bracket);
         printf(" (%d)", t_bracket);
@@ -205,7 +205,8 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         print_temperature_result(t_bracket);
         printf(" (%d)", s_bracket);
         printf(".\n");
-    } else if (t_bracket == 2 || t_bracket == 4 || s_bracket == 2 || s_bracket == 4) { //3) None of the parameters are too extreme
+    }
+    else if (t_bracket == 2 || t_bracket == 4 || s_bracket == 2 || s_bracket == 4) { //3) None of the parameters are too extreme
         printf("The conditions for planting seagrass are good enough, but could be better.\nT");
         print_salinity_result(s_bracket);
         printf(" (%d)", s_bracket);
@@ -215,7 +216,8 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         printf(".\n");
         print_secchi_result(mdl);
         printf(" (%d)", mdl);
-    } else { //Optimal conditions for both temperature and salinity
+    }
+    else { //Optimal conditions for both temperature and salinity
         printf("This area is recommended for planting seagrass.\nT");
         print_temperature_result(t_bracket);
         // printf(" (%d)", t_bracket);
@@ -248,7 +250,7 @@ int main(){
             }
 
             //Takes user input, prints the result, and saves the entry in the textfile
-            input_parameters(temperature, salinity, secchi_depth, location);
+            input_parameters(&temperature, &salinity, &secchi_depth, location);
             print_full_result(temperature, salinity, secchi_depth);
             save_entry(f, temperature, salinity, secchi_depth, location);
             fclose(f);
