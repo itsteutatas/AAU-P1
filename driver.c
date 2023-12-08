@@ -9,11 +9,11 @@
 //Used in main to choose whether more data entries should be made or the program should end. Returns 'y' for yes and 'n' for no.
 char scan_selection() {
     char selection = ' ';
-    printf("Would you like to make a data entry? (y/n): ");
+    printf("Would you like to make a data entry?\nFor yes, type 'y':\nFor, type 'n':\n");
     scanf(" %c", &selection);
     return selection;
 }
-/*  This function prompts and scans for the three measured values of temperature, salinity and secchi depth as well as a location.
+/*  This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
  *  First prompts user for temperature and salinity parameters. Will only prompt for Secchi depth input if set parameters
  *  fulfill minimum requirements (check_input function).
  *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
@@ -27,29 +27,41 @@ void input_parameters(double temperature, double salinity, double secchi_depth, 
         scanf("%lf", &salinity);
 
         check_parameter_input(temperature, salinity, secchi_depth, location);
-
-        if (secchi_depth > 0) {
-
-        }
-
-        printf("\nEnter the location from which the parameters are derived. Please do not enter invalid letters: æ/Æ, ø/Ø, å/Å.\n");
-        if (scanf("%s", location)) { //Checks the user has input a valid location without using invalid letters such as æ/Æ, ø/Ø, å/Å.
-            check_location_input(location);
+        int check = input_location(location);
+        if (check != 1) {
             break;
         }
-
     }   while(1);
+}
+
+/*  This function prompts user to enter a location. If the input is invalid, user will be promted to re-enter a location
+ *  by calling itself again as recursive function.
+ */
+int input_location(char location[]){
+    printf("\nEnter the location from which the parameters are derived. Please do not enter invalid letters: æ/Æ, ø/Ø, å/Å.\n");
+    if (scanf("%s", location)) { //Checks the user has input a valid location without using invalid letters such as æ/Æ, ø/Ø, å/Å.
+        int check = check_location_input(location);
+        if (check == 1){
+            input_location(location); //Recursive function
+        }
+        else {
+            return 0;
+        }
+    }
+    else {
+        input_location(location); //Recursive function
+    }
+    return 0;
 }
 /*  This function checks if user input is valid. The limits are based on data for highest and lowest measurements of
  *  temperature and salinity in Danish waters.Will only prompt for Secchi depth input if set parameters
  *  fulfill minimum requirements.
- *  The strstr function checks if there are any invalid letters (æ/Æ, ø/Ø, å/Å) in the location input.
  *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
  */
 void check_parameter_input(double temperature, double salinity, double secchi_depth, char location[]) {
     int count = 0;
 
-    if (temperature <= -10|| temperature >= 30) {
+    if (temperature <= -10|| temperature >= 25) {
         printf("Your temperature input is invalid.\n");
         count = 1;
     }
@@ -69,31 +81,26 @@ void check_parameter_input(double temperature, double salinity, double secchi_de
          input_parameters(temperature, salinity, secchi_depth, location);
     }
 
-    /*if (strstr(location, "æ") || strstr(location, "Æ")) { //strstr searches for the (little) substring "æ"/"Æ" in the (big) main string.
-        printf("Invalid input. Please use ae or AE instead of æ/Æ.\n");
-    }
-    if (strstr(location, "ø") || strstr(location, "Ø")) { //strstr searches for the (little) substring "ø"/"Ø" in the (big) main string.
-        printf("Invalid input. Please use oe or OE instead of ø/Ø.\n");
-    }
-    if (strstr(location, "å") || strstr(location, "Å")) { //strstr searches for the (little) substring "å"/"Å" in the (big) main string.
-        printf("Invalid input. Please use aa or AA instead of å/Å.\n");
-    }
-
-    if (count == 1) {   //If inputs are invalid the program will prompt user to enter parameters again.
-        input_parameters(temperature, salinity, secchi_depth, location);
-    }*/
-
 }
-void check_location_input(char location[]){
+/*  This function checks if there are any invalid letters (æ/Æ, ø/Ø, å/Å) in the location input using strstr function.
+ *  NOTE: LÆSER KUN FØRSTE ÆØÅ I EN STRING >.<
+ */
+int check_location_input(char location[]){
 
     if (strstr(location, "æ") || strstr(location, "Æ")) { //strstr searches for the (little) substring "æ"/"Æ" in the (big) main string.
         printf("Invalid input. Please use ae or AE instead of æ/Æ.\n");
+        return 1;
     }
     if (strstr(location, "ø") || strstr(location, "Ø")) { //strstr searches for the (little) substring "ø"/"Ø" in the (big) main string.
         printf("Invalid input. Please use oe or OE instead of ø/Ø.\n");
+        return 1;
     }
     if (strstr(location, "å") || strstr(location, "Å")) { //strstr searches for the (little) substring "å"/"Å" in the (big) main string.
         printf("Invalid input. Please use aa or AA instead of å/Å.\n");
+        return 1;
+    }
+    else{
+        return 0;
     }
 }
 
@@ -246,8 +253,8 @@ int main(){
     double temperature = 0, salinity = 0, secchi_depth = 0;
 
     //Initial prompt
-    printf("\nThis program needs an input of temperature, Secchi depth and salinity.\n"
-           "With this input, it calculates whether the area is suitable for planting seagrass.\n\n");
+    printf("\nThis program needs an input of temperature, Secchi depth and salinity."
+           " With this input, it calculates whether the area is suitable for planting seagrass.\n\n");
 
     //Program loop, uses scan_selection() to determine whether program should run or exit
     while(1) {

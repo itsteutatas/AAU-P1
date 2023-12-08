@@ -31,3 +31,5 @@
 0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: orø
 0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: orø
 0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: or�ø
+0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: ry
+0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: ry
