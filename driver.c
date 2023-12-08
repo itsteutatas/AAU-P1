@@ -68,9 +68,6 @@ void input_parameters(double temperature, double salinity, double secchi_depth, 
        printf("\nMeasure the salinity in ppt, then input the value without unit and press enter: ");
        scanf("%lf", &salinity);
 
-       printf("Measure the secchi depth in centimeter, then input the value without unit and press enter: ");
-       scanf("%lf", &secchi_depth);
-
        check_input(temperature, salinity, secchi_depth, location);
 
        if (secchi_depth > 0) {

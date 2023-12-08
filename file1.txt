@@ -10,3 +10,5 @@
 0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: ry
 0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: ry
 0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: c
+0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: 
+0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: Kattegat
