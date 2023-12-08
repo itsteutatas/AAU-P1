@@ -2,6 +2,8 @@
 #include "stdlib.h"
 #include "main.h"
 #include "driver.h"
+#include "string.h"
+#include "ctype.h"
 #define MAX_STRING_LENGTH 20
 
 //Used in main to choose whether more data entries should be made or the program should end. Returns 'y' for yes and 'n' for no.
@@ -11,52 +13,75 @@ char scan_selection() {
     scanf(" %c", &selection);
     return selection;
 }
-//This function validates input parameters. Want to make a range - higher and lower limitis for input
-//E.g. for temperature limits could be max low and high temperatures measured in Danish waters.
-// Max low : -10, max high : 30
-void check_input(double temperature, double salinity, double secchi_depth, char location[]){
+/*  Thi function checks if user input is valid. The limits are based on data for highest and lowest measurements of
+ *  temperature and salinity in Danish waters.Will only prompt for Secchi depth input if set parameters
+ *  fulfill minimum requirements.
+ *  The strstr function checks if there are any invalid letters (æ/Æ, ø/Ø, å/Å) in the location input.
+ *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
+ */
+ void check_input(double temperature, double salinity, double secchi_depth, char location[]) {
     int count = 0;
 
-    if(temperature <= -10|| temperature >= 30){
+    if (temperature <= -10|| temperature >= 30) {
         printf("Your temperature input is invalid.\n");
         count = 1;
     }
-    if(salinity < 0 || salinity > 50){
+    if (salinity < 0 || salinity > 50) {
         printf("Your salinity input is invalid.\n");
         count = 1;
     }
-    if(secchi_depth <= 0){
-        printf("Your Secchi depth input is invalid.\n");
-        count = 1;
+    if (count == 0 && temperature > 10 || salinity > 9) {
+        printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter: ");
+        if (scanf("%lf", &secchi_depth) != 1 || secchi_depth <= 0) { //If it's not equal to 1, it means that scanf failed to read a valid number.
+            printf("Your Secchi depth input is invalid.\n");
+            count = 1;
+        }
     }
 
-    if (count == 1) {
+    if (count == 1) {   //If inputs are invalid the program will prompt user to enter parameters again.
         input_parameters(temperature, salinity, secchi_depth, location);
     }
+
+    if (strstr(location, "æ") || strstr(location, "Æ")) { //strstr searches for the (little) substring "æ"/"Æ" in the (big) main string.
+        printf("Invalid input. Please use ae or AE instead of æ/Æ.\n");
+    }
+    if (strstr(location, "ø") || strstr(location, "Ø")) { //strstr searches for the (little) substring "ø"/"Ø" in the (big) main string.
+        printf("Invalid input. Please use oe or OE instead of ø/Ø.\n");
+    }
+    if (strstr(location, "å") || strstr(location, "Å")) { //strstr searches for the (little) substring "å"/"Å" in the (big) main string.
+        printf("Invalid input. Please use aa or AA instead of å/Å.\n");
+    }
+
 }
 
-//This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
-void input_parameters(double temperature, double salinity, double secchi_depth, char location[]){
-    printf("Measure the temperature in degrees Celsius, then input the value without unit and press enter: ");
-    scanf("%lf", &temperature);
+/*  This function prompts and scans for the three measured values of temperature, salinity and secchi depth as well as a location.
+ *  First prompts user for temperature and salinity parameters. Will only prompt for Secchi depth input if set parameters
+ *  fulfill minimum requirements (check_input function).
+ *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
+ */
+void input_parameters(double temperature, double salinity, double secchi_depth, char location[]) {
+   do {
+       printf("\nMeasure the temperature in degrees Celsius, then input the value without unit and press enter: ");
+       scanf("%lf", &temperature);
 
-    printf("Measure the salinity in ppt, then input the value without unit and press enter: ");
-    scanf("%lf", &salinity);
+       printf("\nMeasure the salinity in ppt, then input the value without unit and press enter: ");
+       scanf("%lf", &salinity);
 
-    printf("Measure the secchi depth in centimeter, then input the value without unit and press enter: ");
+       check_input(temperature, salinity, secchi_depth, location);
 
-    scanf("%lf", &secchi_depth);
+       if (secchi_depth > 0) {
+           break;
+       }
 
-    printf("Enter the sea at which the measurements are taken: ");
-    scanf("%s", location);
-
-    check_input(temperature, salinity, secchi_depth, location);
+       printf("\nEnter the location from which the parameters are derived. Please do not enter invalid letters: æ/Æ, ø/Ø, å/Å.\n");
+       if (scanf("%s", location)) { //Checks the user has input a valid location without using invalid letters such as æ/Æ, ø/Ø, å/Å.
+           break;
+       }
+   }while(1);
 }
-
-
 
 //This function saves an entry of the three values into the opened file, f.
-void save_entry(FILE* f, double temperature, double salinity, double secchi_depth, char location[]){
+void save_entry(FILE* f, double temperature, double salinity, double secchi_depth, char location[]) {
     fprintf(f, "%.1lf degrees Celsius | %.1lf ppt salinity | %.1lf centimeters | Location: %s\n", temperature, salinity, secchi_depth, location);
 }
 
@@ -204,7 +229,7 @@ int main(){
     double temperature = 0, salinity = 0, secchi_depth = 0;
 
     //Initial prompt
-    printf("This program needs an input of temperature, Secchi depth and salinity.\n"
+    printf("\nThis program needs an input of temperature, Secchi depth and salinity.\n"
            "With this input, it calculates whether the area is suitable for planting seagrass.\n\n");
 
     //Program loop, uses scan_selection() to determine whether program should run or exit
@@ -230,6 +255,7 @@ int main(){
         }
         else {
             printf("Input not valid. Please write y or n\n");
+
         }
     }
 }
