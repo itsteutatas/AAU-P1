@@ -1,9 +1,1 @@
-0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: lokken
-0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: loekken
-10.0 degrees Celsius | 10.0 ppt salinity | 0.0 centimeters | Location: Kattegat
-10.0 degrees Celsius | 10.0 ppt salinity | 100.0 centimeters | Location: loekken
-10.0 degrees Celsius | 10.0 ppt salinity | 100.0 centimeters | Location: lokken
-0.0 degrees Celsius | 0.0 ppt salinity | 0.0 centimeters | Location: k
-10.0 degrees Celsius | 10.0 ppt salinity | 100.0 centimeters | Location: lokken
-100.0 degrees Celsius | 100.0 ppt salinity | 100.0 centimeters | Location: loekken
 10.0 degrees Celsius | 10.0 ppt salinity | 100.0 centimeters | Location: lokken
