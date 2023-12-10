@@ -21,10 +21,10 @@ char scan_selection() {
  */
 void input_parameters(double *temperature, double *salinity, double *secchi_depth, char location[]) {
     printf("\nMeasure the temperature in degrees Celsius, then input the value without unit and press enter: ");
-    scanf("%lf", temperature);
+    scanf(" %lf", temperature);
 
     printf("\nMeasure the salinity in ppt, then input the value without unit and press enter: ");
-    scanf("%lf", salinity);
+    scanf(" %lf", salinity);
 
     check_parameter_input(*temperature, *salinity, secchi_depth, location);
 
@@ -36,7 +36,7 @@ void input_parameters(double *temperature, double *salinity, double *secchi_dept
  */
 void input_location(char location[]){
     printf("\nEnter the location from which the parameters are derived. Please do not enter invalid letters: æ/Æ, ø/Ø, å/Å.\n");
-    if (scanf("%s", location)) { //Checks the user has input a valid location without using invalid letters such as æ/Æ, ø/Ø, å/Å.
+    if (scanf(" %s", location)) { //Checks the user has input a valid location without using invalid letters such as æ/Æ, ø/Ø, å/Å.
         int check = check_location_input(location);
         if (check == 1){
             input_location(location); //Recursive function
@@ -64,13 +64,16 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
         count = 1;
     }
 
-    if ((count != 1) && (temperature > 10 || salinity > 9)) {
-        printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter: ");
-        if (scanf("%lf", secchi_depth) != 1 || secchi_depth <= 0) { //If it's not equal to 1, it means that scanf failed to read a valid number.
+    if ((count != 1) && (temperature > 4 || salinity > 4)) {
+        printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
+        if (scanf(" %lf", secchi_depth) != 1 || *secchi_depth <= 0) { //If it's not equal to 1, it means that scanf failed to read a valid number.
             printf("Your Secchi depth input is invalid.\n");
+            check_parameter_input(temperature, salinity, secchi_depth, location);
         }
     }
     else {   //If inputs are invalid the program will prompt user to enter parameters again.
+        temperature = 0;
+        salinity = 0;
         input_parameters(&temperature, &salinity, secchi_depth, location);
     }
 
