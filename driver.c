@@ -71,7 +71,7 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
         }
     }
     else {   //If inputs are invalid the program will prompt user to enter parameters again.
-         input_parameters(&temperature, &salinity, secchi_depth, location);
+        input_parameters(&temperature, &salinity, secchi_depth, location);
     }
 
 }
