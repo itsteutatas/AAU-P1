@@ -8,4 +8,6 @@ include_directories(.)
 add_executable(aau_P1
         main.c
         main.h
-        )
+        driver.c
+        driver.h
+)
