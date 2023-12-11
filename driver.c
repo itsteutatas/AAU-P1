@@ -134,33 +134,33 @@ int max_depth_limit(int sd) {
 void print_temperature_result(int t) {
     switch (t) {
         case 1:
-            printf("The current temperature conditions are poor, as the water temperature is too low."
-                   "Seagrass planted here is likely to survive, but its growth will be stunted.");
+            printf("The current temperature conditions are poor, as the water temperature is too low. "
+                   "Seagrass planted here is likely to survive, but its growth will be stunted");
             break;
         case 2:
-            printf("The current temperature conditions are fine, albeit slightly low."
-                   "Seagrass planted here will survive, but not thrive.");
+            printf("The current temperature conditions are fine, albeit slightly low. "
+                   "Seagrass planted here will survive, but not thrive");
             break;
         case 3:
-            printf("The current temperature conditions are optimal."
-                   "Seagrass planted here will thrive.");
+            printf("The current temperature conditions are optimal. "
+                   "Seagrass planted here will thrive");
             break;
         case 4:
-            printf("The current temperature conditions are fine, albeit slightly high."
-                   "Seagrass planted here will survive, but not thrive.");
+            printf("The current temperature conditions are fine, albeit slightly high. "
+                   "Seagrass planted here will survive, but not thrive");
             break;
         case 5:
-            printf("The current temperature conditions are poor, as the water temperature is too high."
-                   "Seagrass planted here will not be able to reproduce.");
+            printf("The current temperature conditions are poor, as the water temperature is too high. "
+                   "Seagrass planted here will not be able to reproduce");
             break;
         case 6:
-            printf("The current temperature conditions are severe, as the temperature is much too high."
-                   "Seagrass planted here will likely not survive.");
+            printf("The current temperature conditions are severe, as the temperature is much too high. "
+                   "Seagrass planted here will likely not survive");
     }
 }
 
 void print_secchi_result(int mdl) {
-    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.", mdl);
+    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.\n\n\n", mdl);
 }
 
 
@@ -222,7 +222,7 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
 
     //Four options:
     if(t_bracket == 1 || t_bracket > 4) { //1) Temperature is too extreme, print temperature first and salinity after
-        printf("It is not recommended to plant seagrass in this area.\nT");
+        printf("\n\nIt is not recommended to plant seagrass in this area.\n");
         print_temperature_result(t_bracket);
         printf(" (%d)", t_bracket);
         printf(", and t");
@@ -231,7 +231,7 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         printf(".\n");
     }
     else if (s_bracket == 1 || s_bracket == 5) { //2) Salinity is too extreme, print salinity first and temperature after
-        printf("It is not recommended to plant seagrass in this area.\nT");
+        printf("\n\nIt is not recommended to plant seagrass in this area.\n");
         print_salinity_result(s_bracket);
         printf(" (%d)", t_bracket);
         printf(", and t");
@@ -240,7 +240,7 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         printf(".\n");
     }
     else if (t_bracket == 2 || t_bracket == 4 || s_bracket == 2 || s_bracket == 4) { //3) None of the parameters are too extreme
-        printf("The conditions for planting seagrass are good enough, but could be better.\nT");
+        printf("\n\nThe conditions for planting seagrass are good enough, but could be better.\n");
         print_salinity_result(s_bracket);
         printf(" (%d)", s_bracket);
         printf(", and t");
@@ -251,7 +251,7 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         printf(" (%d)", mdl);
     }
     else { //Optimal conditions for both temperature and salinity
-        printf("This area is recommended for planting seagrass.\nT");
+        printf("\n\nThis area is recommended for planting seagrass.\n");
         print_temperature_result(t_bracket);
         // printf(" (%d)", t_bracket);
         printf(", and t");
