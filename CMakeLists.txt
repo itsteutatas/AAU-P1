@@ -6,6 +6,6 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(aau_P1
-        driver.c
-        driver.h
-)
+        main.c
+        main.h
+        )
