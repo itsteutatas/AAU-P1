@@ -1,7 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include <math.h>
-#include "main.h"
 #include "driver.h"
 #include "string.h"
 #include "ctype.h"
@@ -192,28 +191,6 @@ int calc_mdl(double sd) {
     return sd * 0.95;
 }
 
-//Takes a parameter of temperature bracket and prints a string that represents the temperature bracket.
-void print_temperature_result(int t) {
-    switch (t) {
-        case 1:
-            printf("he current water temperature is too low");
-            break;
-        case 2:
-            printf("he current water temperature fine, albeit slightly low");
-            break;
-        case 3:
-            printf("he current water temperature is optimal");
-            break;
-        case 4:
-            printf("he current water temperature is fine, albeit slightly high");
-            break;
-        case 5:
-            printf("he current water temperature is too high");
-            break;
-        case 6:
-            printf("he current water temperature is much too high");
-    }
-}
 
 //Takes a parameter of salinity bracket and prints a string that represents the salinity bracket.
 void print_salinity_result(int salinity_bracket){
@@ -234,12 +211,6 @@ void print_salinity_result(int salinity_bracket){
             printf("he current salinity level is too high");
             break;
     }
-}
-
-
-//Takes parameter of max depth limit and prints the result as a string.
-void print_secchi_result(int mdl) {
-    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters.\n\n", mdl);
 }
 
 //Encapsulates the previous functions; finds brackets for temperature and salinity, finds the max depth limit, and
