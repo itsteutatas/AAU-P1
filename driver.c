@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include <math.h>
 #include "main.h"
 #include "driver.h"
 #include "string.h"
@@ -122,6 +123,48 @@ int calc_t_bracket(double c) {
     }
 }
 
+
+//This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
+//can be planted.
+//It returns an integer of the max depth limit in centimeters, rounded up.
+int max_depth_limit(int sd) {
+    return ceil(sd * 0.95);
+} // tjek resultat for int*0.95
+
+//
+void print_temperature_result(int t) {
+    switch (t) {
+        case 1:
+            printf("The current temperature conditions are poor, as the water temperature is too low."
+                   "Seagrass planted here is likely to survive, but its growth will be stunted.");
+            break;
+        case 2:
+            printf("The current temperature conditions are fine, albeit slightly low."
+                   "Seagrass planted here will survive, but not thrive.");
+            break;
+        case 3:
+            printf("The current temperature conditions are optimal."
+                   "Seagrass planted here will thrive.");
+            break;
+        case 4:
+            printf("The current temperature conditions are fine, albeit slightly high."
+                   "Seagrass planted here will survive, but not thrive.");
+            break;
+        case 5:
+            printf("The current temperature conditions are poor, as the water temperature is too high."
+                   "Seagrass planted here will not be able to reproduce.");
+            break;
+        case 6:
+            printf("The current temperature conditions are severe, as the temperature is much too high."
+                   "Seagrass planted here will likely not survive.");
+    }
+}
+
+void print_secchi_result(int mdl) {
+    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.", mdl);
+}
+
+
 //Check which bracket salinity input falls into. Returns: Returns: Int corresponding with bracket
 int calc_s_bracket(double s) {
     if(s < 5){
@@ -140,6 +183,7 @@ int calc_s_bracket(double s) {
         return 5; // Returns 5 for a not good result
     }
 }
+
 
 //This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
 //can be planted.
@@ -191,6 +235,7 @@ void print_salinity_result(int salinity_bracket){
             break;
     }
 }
+
 
 //Takes parameter of max depth limit and prints the result as a string.
 void print_secchi_result(int mdl) {
@@ -246,6 +291,7 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
     }
 }
 
+
 int main(){
     char selection;
     char location[MAX_STRING_LENGTH];
@@ -266,6 +312,7 @@ int main(){
                 exit(EXIT_FAILURE);
             }
 
+
             //Takes user input, prints the result, and saves the entry in the textfile
             input_parameters(&temperature, &salinity, &secchi_depth, location);
             print_full_result(temperature, salinity, secchi_depth);
@@ -279,5 +326,6 @@ int main(){
         else {
             printf("Input not valid. Please write y or n\n");
         }
+
     }
 }
