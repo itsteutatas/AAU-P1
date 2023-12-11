@@ -123,14 +123,6 @@ int calc_t_bracket(double c) {
 }
 
 
-//This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
-//can be planted.
-//It returns an integer of the max depth limit in centimeters, rounded up.
-int max_depth_limit(int sd) {
-    return ceil(sd * 0.95);
-} // tjek resultat for int*0.95
-
-//
 void print_temperature_result(int t) {
     switch (t) {
         case 1:
