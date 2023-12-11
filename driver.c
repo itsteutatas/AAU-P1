@@ -17,7 +17,6 @@ char scan_selection() {
 /*  This function prompts and scans for the three measured values of temperature, salinity and secchi depth.
  *  First prompts user for temperature and salinity parameters. Will only prompt for Secchi depth input if set parameters
  *  fulfill minimum requirements (check_input function).
- *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
  */
 void input_parameters(double *temperature, double *salinity, double *secchi_depth, char location[]) {
     char temp[MAX_STRING_LENGTH];
@@ -45,7 +44,7 @@ void input_parameters(double *temperature, double *salinity, double *secchi_dept
  *  by calling itself again as recursive function.
  */
 void input_location(char location[]){
-    printf("\nEnter the location from which the parameters are derived. Please do not enter invalid letters: æ/Æ, ø/Ø, å/Å.\n");
+    printf("\nEnter the location from which the parameters are derived. Please do not enter invalid danish letters.\n");
     if (scanf(" %s", location)) { //Checks the user has input a valid location without using invalid letters such as æ/Æ, ø/Ø, å/Å.
         int check = check_location_input(location);
         if (check == 1){
@@ -100,15 +99,15 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
 int check_location_input(char location[]){
 
     if (strstr(location, "æ") || strstr(location, "Æ")) {   //strstr searches for the (little) substring "æ"/"Æ" in the (big) main string.
-        printf("Invalid input. Please use ae or AE instead of æ/Æ.\n");
+        printf("Invalid input. Please use ae or AE.\n");
         return 1;
     }
     if (strstr(location, "ø") || strstr(location, "Ø")) {   //strstr searches for the (little) substring "ø"/"Ø" in the (big) main string.
-        printf("Invalid input. Please use oe or OE instead of ø/Ø.\n");
+        printf("Invalid input. Please use oe or OE.\n");
         return 1;
     }
     if (strstr(location, "å") || strstr(location, "Å")) {   //strstr searches for the (little) substring "å"/"Å" in the (big) main string.
-        printf("Invalid input. Please use aa or AA instead of å/Å.\n");
+        printf("Invalid input. Please use aa or AA.\n");
         return 1;
     }
     else{
