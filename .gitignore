@@ -4,5 +4,6 @@ cmake-build-debug/**
 a.out
 a.exe
 file1.txt
+driver.exe
 main.h
 main.c
