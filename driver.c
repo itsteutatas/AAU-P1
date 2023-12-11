@@ -20,15 +20,25 @@ char scan_selection() {
  *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
  */
 void input_parameters(double *temperature, double *salinity, double *secchi_depth, char location[]) {
+    char temp[MAX_STRING_LENGTH];
+    char sal[MAX_STRING_LENGTH];
+
     printf("\nMeasure the temperature in degrees Celsius, then input the value without unit and press enter: ");
-    scanf(" %lf", temperature);
+    scanf(" %s", temp); // Insert input in a string in order to check if it is a number
 
     printf("\nMeasure the salinity in ppt, then input the value without unit and press enter: ");
-    scanf(" %lf", salinity);
+    scanf(" %s", sal);
 
-    check_parameter_input(*temperature, *salinity, secchi_depth, location);
-
-    input_location(location);
+    if (atoi(temp) == 0 || atoi(sal) == 0) {    // Check if input is a number
+        printf("Invalid input");
+        input_parameters(temperature, salinity, secchi_depth, location);
+    }
+    else {
+        *temperature = atoi(temp);
+        *salinity = atoi(sal);
+        check_parameter_input(*temperature, *salinity, secchi_depth, location);
+        input_location(location);
+    }
 }
 
 /*  This function prompts user to enter a location. If the input is invalid, user will be promted to re-enter a location
@@ -55,26 +65,32 @@ void input_location(char location[]){
 void check_parameter_input(double temperature, double salinity, double *secchi_depth, char location[]) {
     int count = 0;
 
-    if (temperature <= -10|| temperature >= 25) {
+    if (temperature <= -10 || temperature >= 35) {  // Check if temperature is more or less than the common temperature of danish waters
         printf("Your temperature input is invalid.\n");
-        count = 1;
+        count = 1;  // If temperature is out of range, don't ask for Secchi depth
+        temperature = 0;
     }
-    if (salinity < 0 || salinity > 50) {
+    if (salinity < 0 || salinity > 50) {    // Check if salinity is more or less than the common salinity of danish waters
         printf("Your salinity input is invalid.\n");
-        count = 1;
+        count = 1;  // If salinity is out of range, don't ask for Secchi depth
+        salinity = 0;
     }
 
-    if ((count != 1) && (temperature > 4 || salinity > 4)) {
+    // If temperature and salinity are correct and show positive conditions for seagrass (see calc_t_bracket & calc_s_bracket), ask for secchi depth
+    if ((count != 1) && (temperature >= 5 || temperature <= 24 || salinity >= 5 ||salinity <= 36)) {
+        char secchi[MAX_STRING_LENGTH];
+
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
-        if (scanf(" %lf", secchi_depth) != 1 || *secchi_depth <= 0) { //If it's not equal to 1, it means that scanf failed to read a valid number.
+        int check = scanf(" %s", secchi);
+        *secchi_depth = atoi(secchi);
+        if (check != 1 || *secchi_depth <= 0 || atoi(secchi) == 0) { //If scanf is not equal to 1, it means that it failed to read a valid number. Check also if input is a number
             printf("Your Secchi depth input is invalid.\n");
             check_parameter_input(temperature, salinity, secchi_depth, location);
         }
     }
     else {   //If inputs are invalid the program will prompt user to enter parameters again.
-        temperature = 0;
-        salinity = 0;
         input_parameters(&temperature, &salinity, secchi_depth, location);
+        printf(" %lf | %lf\n", temperature, salinity);
     }
 
 }
@@ -83,7 +99,7 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
  */
 int check_location_input(char location[]){
 
-    if (strstr(location, "æ") || strstr(location, "Æ")) { //strstr searches for the (little) substring "æ"/"Æ" in the (big) main string.
+    if (strstr(location, "æ") || strstr(location, "Æ")) {   //strstr searches for the (little) substring "æ"/"Æ" in the (big) main string.
         printf("Invalid input. Please use ae or AE instead of æ/Æ.\n");
         return 1;
     }
