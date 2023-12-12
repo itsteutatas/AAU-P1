@@ -1,6 +1,5 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include <math.h>
 #include "driver.h"
 #include "string.h"
 #include "ctype.h"
@@ -59,7 +58,6 @@ void input_location(char location[]){
 /*  This function checks if user input is valid. The limits are based on data for highest and lowest measurements of
  *  temperature and salinity in Danish waters.Will only prompt for Secchi depth input if set parameters
  *  fulfill minimum requirements.
- *  NOTE: PROGRAMMET FUCKER UP HVIS INPUT FOR TEMPERATUR, SALINITET OG SECCHI DEPTH ER EN CHARACTER >.<
  */
 void check_parameter_input(double temperature, double salinity, double *secchi_depth, char location[]) {
     int count = 0;
@@ -137,15 +135,6 @@ int calc_t_bracket(double c) {
     }
 }
 
-
-//This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
-//can be planted.
-//It returns an integer of the max depth limit in centimeters, rounded up.
-int max_depth_limit(int sd) {
-    return ceil(sd * 0.95);
-} // tjek resultat for int*0.95
-
-//
 void print_temperature_result(int t) {
     switch (t) {
         case 1:
@@ -201,7 +190,7 @@ int calc_s_bracket(double s) {
 //This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
 //can be planted.
 //It returns an integer of the max depth limit in centimeters, rounded down.
-int calc_mdl(double sd) {   // mdl = max secchi depth limit
+int calc_mdl(double sd) {   // mdl = max depth limit
     return sd * 0.95;
 }
 
@@ -236,23 +225,23 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
     //Four options:
     if(t_bracket == 1 || t_bracket > 4) { //1) Temperature is too extreme, print temperature first and salinity after
         printf("It is not recommended to plant seagrass in this area.\nT");
-        print_temperature_result(t_bracket);
-        printf(", and t");
         print_salinity_result(s_bracket);
+        printf(", and t");
+        print_temperature_result(t_bracket);
         printf(".\n");
     }
     else if (s_bracket == 1 || s_bracket == 5) { //2) Salinity is too extreme, print salinity first and temperature after
         printf("It is not recommended to plant seagrass in this area.\nT");
-        print_temperature_result(t_bracket);
-        printf(", and t");
         print_salinity_result(s_bracket);
+        printf(", and t");
+        print_temperature_result(t_bracket);
         printf(". Seagrass planted here will not thrive.\nT");
     }
     else if (t_bracket == 2 || t_bracket == 4 || s_bracket == 2 || s_bracket == 4) { //3) None of the parameters are too extreme
         printf("The conditions for planting seagrass are good enough, but could be better.\nT");
-        print_salinity_result(s_bracket);
-        printf(", and t");
         print_temperature_result(t_bracket);
+        printf(", and t");
+        print_salinity_result(s_bracket);
         printf(".\n");
         print_secchi_result(mdl);
     }
