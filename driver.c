@@ -201,7 +201,7 @@ int calc_s_bracket(double s) {
 //This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
 //can be planted.
 //It returns an integer of the max depth limit in centimeters, rounded down.
-int calc_mdl(double sd) {
+int calc_mdl(double sd) {   // mdl = max secchi depth limit
     return sd * 0.95;
 }
 
@@ -300,6 +300,5 @@ int main(){
         else {
             printf("Input not valid. Please write y or n\n");
         }
-
     }
 }
