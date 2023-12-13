@@ -81,12 +81,12 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
         int check = scanf(" %s", secchi);
         *secchi_depth = atoi(secchi);
-        if (check != 1 || *secchi_depth <= 0 || atoi(secchi) == 0) { //If scanf is not equal to 1, it means that it failed to read a valid number. Check also if input is a number
+        if (check != 1 || *secchi_depth < 0 || atoi(secchi) == 0) { //If scanf is not equal to 1, it means that it failed to read a valid number. Check also if input is a number
             printf("Your Secchi depth input is invalid.\n");
             check_parameter_input(temperature, salinity, secchi_depth, location);
         }
     }
-    else {   //If inputs are invalid the program will prompt user to enter parameters again.
+    else {   // If inputs are invalid the program will prompt user to enter parameters again.
         input_parameters(&temperature, &salinity, secchi_depth, location);
     }
 
@@ -139,31 +139,31 @@ void print_temperature_result(int t) {
     switch (t) {
         case 1:
             printf("he current temperature conditions are poor, as the water temperature is too low. "
-                   "Seagrass planted here is likely to survive, but its growth will be stunted.");
+                   "Seagrass planted here is likely to survive, but its growth will be stunted");
             break;
         case 2:
             printf("he current temperature conditions are fine, albeit slightly low. "
-                   "Seagrass planted here will survive, but not thrive.");
+                   "Seagrass planted here will survive, but not thrive");
             break;
         case 3:
             printf("he current temperature conditions are optimal");
             break;
         case 4:
             printf("he current temperature conditions are fine, albeit slightly high. "
-                   "Seagrass planted here will survive, but not thrive.");
+                   "Seagrass planted here will survive, but not thrive");
             break;
         case 5:
             printf("he current temperature conditions are poor, as the water temperature is too high. "
-                   "Seagrass planted here will not be able to reproduce.");
+                   "Seagrass planted here will not be able to reproduce");
             break;
         case 6:
             printf("he current temperature conditions are severe, as the temperature is much too high. "
-                   "Seagrass planted here will likely not survive.");
+                   "Seagrass planted here will likely not survive");
     }
 }
 
 void print_secchi_result(int mdl) {
-    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.", mdl);
+    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimetres to survive.", mdl);
 }
 
 
@@ -235,7 +235,7 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         print_salinity_result(s_bracket);
         printf(", and t");
         print_temperature_result(t_bracket);
-        printf(". Seagrass planted here will not thrive.\nT");
+        printf(". Seagrass planted here will not thrive.\n");
     }
     else if (t_bracket == 2 || t_bracket == 4 || s_bracket == 2 || s_bracket == 4) { //3) None of the parameters are too extreme
         printf("The conditions for planting seagrass are good enough, but could be better.\nT");
