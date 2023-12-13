@@ -55,18 +55,18 @@ void input_location(char location[]){
 void check_parameter_input(double temperature, double salinity, double *secchi_depth, char location[]) {
     int count = 0;
 
-    if (temperature <= -10|| temperature >= 25) {
+    if (temperature <= -10|| temperature >= 30) {
         printf("Your temperature input is invalid.\n");
         count = 1;
     }
-    if (salinity < 0 || salinity > 50) {
+    if (salinity < 0 || salinity > 35) {
         printf("Your salinity input is invalid.\n");
         count = 1;
     }
 
     if ((count != 1) && (temperature > 4 || salinity > 4)) {
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
-        if (scanf(" %lf", secchi_depth) != 1 || *secchi_depth <= 0) { //If it's not equal to 1, it means that scanf failed to read a valid number.
+        if (scanf(" %lf", secchi_depth) != 1 || *secchi_depth <= 0 || *secchi_depth > 10) { //If it's not equal to 1, it means that scanf failed to read a valid number.
             printf("Your Secchi depth input is invalid.\n");
             check_parameter_input(temperature, salinity, secchi_depth, location);
         }
