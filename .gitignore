@@ -1,6 +1,7 @@
 cmake-build-debug/**
 .idea\misc.xml
 .idea\inscectionProfiles\Project_default.xml
+driver.dSYMdriver.dSYM/**
 a.out
 a.exe
 file1.txt
