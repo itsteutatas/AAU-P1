@@ -61,17 +61,15 @@ void input_location(char location[]){
  */
 void check_parameter_input(double temperature, double salinity, double *secchi_depth, char location[]) {
     int count = 0;
-
-    if (temperature <= -10 || temperature >= 35) {  // Check if temperature is more or less than the common temperature of danish waters
+    
+    if (temperature <= -10 || temperature >= 30) {  // Check if temperature is more or less than the common temperature of danish waters
         printf("Your temperature input is invalid.\n");
         count = 1;  // If temperature is out of range, don't ask for Secchi depth
-        temperature = 0;
     }
 
-    if (salinity < 0 || salinity > 50) {    // Check if salinity is more or less than the common salinity of danish waters
+    if (salinity < 0 || salinity > 35) {    // Check if salinity is more or less than the common salinity of danish waters
         printf("Your salinity input is invalid.\n");
         count = 1;  // If salinity is out of range, don't ask for Secchi depth
-        salinity = 0;
     }
 
     // If temperature and salinity are correct and show positive conditions for seagrass (see calc_t_bracket & calc_s_bracket), ask for secchi depth
@@ -79,9 +77,10 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
         char secchi[MAX_STRING_LENGTH];
 
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
+
         int check = scanf(" %s", secchi);
         *secchi_depth = atoi(secchi);
-        if (check != 1 || *secchi_depth < 0 || atoi(secchi) == 0) { //If scanf is not equal to 1, it means that it failed to read a valid number. Check also if input is a number
+        if (check != 1 || *secchi_depth < 0 || atoi(secchi) == 0 || *secchi_depth > 10) { //If scanf is not equal to 1, it means that it failed to read a valid number. Check also if input is a number
             printf("Your Secchi depth input is invalid.\n");
             check_parameter_input(temperature, salinity, secchi_depth, location);
         }
