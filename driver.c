@@ -80,6 +80,8 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
 }
 /*  This function checks if there are any invalid letters (æ/Æ, ø/Ø, å/Å) in the location input using strstr function.
  *  NOTE: LÆSER KUN FØRSTE ÆØÅ I EN STRING >.<
+ *  bliver ikke kaldt
+ *  TODO : BLIVER IKKE KALDT
  */
 int check_location_input(char location[]){
 
