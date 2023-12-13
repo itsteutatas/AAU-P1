@@ -75,7 +75,7 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
     }
 
     // If temperature and salinity are correct and show positive conditions for seagrass (see calc_t_bracket & calc_s_bracket), ask for secchi depth
-    if ((count != 1) && (temperature >= 5 || temperature <= 24 || salinity >= 5 ||salinity <= 36)) {
+    if ((count != 1) && (temperature >= 5 || temperature < 25 || salinity >= 5 ||salinity < 36)) {
         char secchi[MAX_STRING_LENGTH];
 
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
@@ -126,7 +126,7 @@ int calc_t_bracket(double c) {
         return 2; //Returns 2 for a fine result
     } else if (c < 21) {
         return 3; //Returns 3 for an optimal result
-    } else if (c < 24) {
+    } else if (c < 25) {
         return 4; //Returns 4 for a fine result
     } else if (c < 30){
         return 5; //Returns 5 for a bad result with stunted reproduction
