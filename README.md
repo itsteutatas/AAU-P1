@@ -1,5 +1,5 @@
 # aau P1
-This is a lightweight CLI application for informing users where its best to plant seagrass and where it doesn't make sense, based on a small set of keynote parameters that are depth, temperature and salinity
+This is a lightweight CLI application for informing users of the conditions for planting seagrass, based on a small set of keynote parameters, namely depth, temperature and salinity.
 
 ## Getting started
 To run this application, you need to do these relatively simple steps:
