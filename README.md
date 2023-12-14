@@ -17,10 +17,10 @@ This application is powered by <a href="https://docs.microsoft.com/en-us/cpp/?vi
 - depth in cm from a [secchi depth test](https://datastream.org/en-ca/guidebook/secchi-depth)
 
 ## Authors
-Alberte Lohse
-[Alexander Holm Hansen](https://github.com/itsteutatas)
-Cecilie Vebner
-Felix Bjerre
-Hella Arman
-Kevin Pedersen
+Alberte Lohse \
+[Alexander Holm Hansen](https://github.com/itsteutatas) \
+Cecilie Vebner \
+Felix Bjerre \
+Hella Arman \
+Kevin Pedersen \
 Nikolaj van Gool
