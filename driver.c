@@ -60,20 +60,20 @@ void input_location(char location[]){
  *  fulfill minimum requirements.
  */
 void check_parameter_input(double temperature, double salinity, double *secchi_depth, char location[]) {
-    int count = 0;
+    int invalid = 0;
 
     if (temperature <= -10 || temperature >= 30) {  // Check if temperature is more or less than the common temperature of danish waters
         printf("Your temperature input is invalid.\n");
-        count = 1;  // If temperature is out of range, don't ask for Secchi depth
+        invalid = 1;  // If temperature is out of range, don't ask for Secchi depth
     }
 
     if (salinity < 0 || salinity > 35) {    // Check if salinity is more or less than the common salinity of danish waters
         printf("Your salinity input is invalid.\n");
-        count = 1;  // If salinity is out of range, don't ask for Secchi depth
+        invalid = 1;  // If salinity is out of range, don't ask for Secchi depth
     }
 
     // If temperature and salinity are correct and show positive conditions for seagrass (see calc_t_bracket & calc_s_bracket), ask for secchi depth
-    if ((count != 1) && (temperature >= 5 || temperature < 25 || salinity >= 5 ||salinity < 36)) {
+    if ((invalid != 1) && (temperature >= 5 || temperature < 25 || salinity >= 5 ||salinity < 36)) {
         char secchi[MAX_STRING_LENGTH];
 
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
