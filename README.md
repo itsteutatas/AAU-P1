@@ -1,8 +1,8 @@
 # aau P1
-this is a lightweight CLI application for informing users where its best to plant seagrass and where it does not make sense to plant it based on a small set of keynote parameters that are depth, temperature and salinity
+This is a lightweight CLI application for informing users of the conditions for planting seagrass, based on a small set of keynote parameters, namely depth, temperature and salinity.
 
 ## Getting started
-to run this application, you need to do these relatively simple steps
+To run this application, you need to do these relatively simple steps:
 1. Install gcc or any other C compiler
 2. Download the code
 3. Open a commandline and use this command ```gcc driver.c```
