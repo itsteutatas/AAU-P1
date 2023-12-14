@@ -22,5 +22,5 @@ Alberte Lohse \
 Cecilie Vebner \
 Felix Bjerre \
 Hella Arman \
-Kevin Pedersen \
+[Kevin Pedersen](https://github.com/KevinPedersenAAU) \
 Nikolaj van Gool
