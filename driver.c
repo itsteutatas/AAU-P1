@@ -73,7 +73,7 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
     }
 
     // If temperature and salinity are correct and show positive conditions for seagrass (see calc_t_bracket & calc_s_bracket), ask for secchi depth
-    if ((invalid != 1) && (temperature >= 5 || temperature < 25 || salinity >= 5 ||salinity < 36)) {
+    if ((invalid != 1) && (temperature >= 5 || temperature < 25 || salinity >= 5 ||salinity < 30)) {
         char secchi[MAX_STRING_LENGTH];
 
         printf("\nMeasure the secchi depth in centimeter, then input the value without unit and press enter:");
@@ -90,6 +90,7 @@ void check_parameter_input(double temperature, double salinity, double *secchi_d
     }
 
 }
+
 /*  This function checks if there are any invalid letters (æ/Æ, ø/Ø, å/Å) in the location input using strstr function.
  *  NOTE: LÆSER KUN FØRSTE ÆØÅ I EN STRING >.<
  */
@@ -165,7 +166,6 @@ void print_secchi_result(int mdl) {
     printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimetres to survive.", mdl);
 }
 
-
 //Check which bracket salinity input falls into. Returns: Returns: Int corresponding with bracket
 int calc_s_bracket(double s) {
     if(s < 5){
@@ -177,14 +177,13 @@ int calc_s_bracket(double s) {
     else if(s < 26) {
         return 3; // Returns 3 for a optimal result
     }
-    else if( s < 36) {
-        return 4; // Returns 4 for a fine result
+    else if( s < 30) {
+        return 4; // Returns 4 for a OK result
     }
     else {
         return 5; // Returns 5 for a not good result
     }
 }
-
 
 //This function checks the maximum depth limit based on Secchi depth. The max depth limit determines how deep seagrass
 //can be planted.
@@ -200,13 +199,13 @@ void print_salinity_result(int salinity_bracket){
             printf("he current salinity level is too low");
             break;
         case 2:
-            printf("he current salinity level is fine");
+            printf("he current salinity level is OK");
             break;
         case 3:
             printf("he current salinity level is optimal");
             break;
         case 4:
-            printf("he current salinity level is fine");
+            printf("he current salinity level is OK");
             break;
         case 5:
             printf("he current salinity level is too high");
@@ -253,7 +252,6 @@ void print_full_result(double temperature, double salinity, double secchi_depth)
         print_secchi_result(mdl);
     }
 }
-
 
 int main(){
     char selection;
