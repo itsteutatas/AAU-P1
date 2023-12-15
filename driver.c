@@ -2,7 +2,6 @@
 #include "stdlib.h"
 #include "driver.h"
 #include "string.h"
-#include "ctype.h"
 #define MAX_STRING_LENGTH 20
 
 // Used in main to choose whether more data entries should be made, or the program should end. Returns 'y' for a yes and 'n' for a no.
