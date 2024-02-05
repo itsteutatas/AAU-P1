@@ -117,7 +117,8 @@ int check_location_input(char location[]){
 
 //This function saves an entry of the three values into the opened file, f.
 void save_entry(FILE* f, double temperature, double salinity, double secchi_depth, char location[]) {
-    fprintf(f, "%.1lf degrees Celsius | %.1lf ppt salinity | %.1lf centimeters | Location: %s\n", temperature, salinity, secchi_depth, location);
+    fprintf(f, "%.1lf degrees Celsius | %.1lf ppt salinity | %.1lf centimeters | Location: %s\n"
+            , temperature, salinity, secchi_depth, location);
 }
 
 //This function checks which bracket the temperature input falls into. It returns an integer corresponding to the bracket
@@ -210,6 +211,32 @@ int calc_mdl(double sd) {
     return sd * 0.95;
 }
 
+<<<<<<< Updated upstream
+=======
+//Takes a parameter of temperature bracket and prints a string that represents the temperature bracket.
+void print_temperature_result(int t) {
+    switch (t) {
+        case 1:
+            printf("he current water temperature is too low");
+            break;
+        case 2:
+            printf("he current water temperature fine, albeit slightly low");
+            break;
+        case 3:
+            printf("he current water temperature is optimal");
+            break;
+        case 4
+            printf("he current water temperature is fine, albeit slightly high");
+            break;
+        case 5:
+            printf("he current water temperature is too high");
+            break;
+        case 6:
+            printf("he current water temperature is much too high");
+    }
+}
+
+>>>>>>> Stashed changes
 //Takes a parameter of salinity bracket and prints a string that represents the salinity bracket.
 void print_salinity_result(int salinity_bracket){
     switch (salinity_bracket) {
