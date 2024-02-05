@@ -174,7 +174,12 @@ void print_temperature_result(int t) {
 }
 
 void print_secchi_result(int mdl) {
+<<<<<<< Updated upstream
     printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimeters to survive.", mdl);
+=======
+
+    printf("The water clarity in this area allows seagrass to be planted at a max depth of %d centimetres to survive.", mdl);
+>>>>>>> Stashed changes
 }
 
 
